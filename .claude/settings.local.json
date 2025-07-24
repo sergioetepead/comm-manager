@@ -24,7 +24,9 @@
       "Bash(chmod:*)",
       "Bash(deploy.bat)",
       "WebFetch(domain:localhost)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(docker volume:*)",
+      "Bash(docker system prune:*)"
     ],
     "deny": []
   }
