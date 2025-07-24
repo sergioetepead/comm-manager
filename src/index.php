@@ -73,8 +73,9 @@ $versionInfo = $versionReader->getVersionInfo();
         </div>
         
         <div class="status info">
-            <strong>ℹ️ Versão Atual: v<?php echo $versionInfo['version']; ?></strong><br>
-            <?php echo $versionInfo['description']; ?> - <?php echo $versionInfo['date']; ?><br>
+            <strong>ℹ️ Versões do Sistema:</strong><br>
+            <strong>App:</strong> v<?php echo $versionInfo['app']['version']; ?> - <?php echo $versionInfo['app']['description']; ?> (<?php echo $versionInfo['app']['date']; ?>)<br>
+            <strong>Infra:</strong> v<?php echo $versionInfo['infra']['version']; ?> - <?php echo $versionInfo['infra']['description']; ?> (<?php echo $versionInfo['infra']['date']; ?>)<br>
             Docker Compose configurado com PHP 8.2, Apache e MySQL 8.0
         </div>
         
