@@ -12,7 +12,10 @@
       "Bash(docker-compose:*)",
       "Bash(timeout:*)",
       "Bash(mv:*)",
-      "Bash(docker exec:*)"
+      "Bash(docker exec:*)",
+      "Bash(php:*)",
+      "Bash(./update-version.bat \"Fase 2 Start - Interface Vue.js\" \"Iniciando desenvolvimento da interface administrativa\" \"Setup Vue.js 3 + Vite preparado\")",
+      "Bash(rm:*)"
     ],
     "deny": []
   }
