@@ -1,5 +1,18 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.4.1 - 2025-07-24
+**Fix: Nomes das seções usando status original**
+
+### ✅ Correção Aplicada
+- 🏷️ Seções de agrupamento agora usam status original (ex: "Students" ao invés de "Estudantes")
+- 🆓 Maior liberdade na criação de réguas sem traduções forçadas
+- 📝 Lógica simplificada: primeira letra maiúscula do status real
+
+### 🎯 Resultado
+- "Lead" → "Lead" ✅
+- "Students" → "Students" ✅ (antes era "Estudantes")
+- "Alunoativo" → "Alunoativo" ✅
+
 ## v2.4.0 - 2025-07-24
 **FASE 2.1 CONCLUÍDA - Integração Backend ↔ Frontend Funcionando**
 

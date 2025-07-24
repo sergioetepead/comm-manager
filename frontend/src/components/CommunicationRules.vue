@@ -227,14 +227,9 @@ export default {
     },
     
     formatStatusName(status) {
-      const statusNames = {
-        'leads': 'Leads',
-        'students': 'Estudantes', 
-        'pagamentos': 'Pagamentos',
-        'marketing': 'Marketing',
-        'outros': 'Outros'
-      }
-      return statusNames[status] || status.charAt(0).toUpperCase() + status.slice(1)
+      // Usa o status original com primeira letra maiúscula
+      // Permite liberdade na criação de réguas sem traduções forçadas
+      return status.charAt(0).toUpperCase() + status.slice(1)
     }
   }
 }
