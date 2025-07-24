@@ -19,7 +19,12 @@
       "Bash(npm install)",
       "Bash(npm run build:*)",
       "Bash(docker run:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(grep:*)",
+      "Bash(chmod:*)",
+      "Bash(deploy.bat)",
+      "WebFetch(domain:localhost)",
+      "Bash(npx vite:*)"
     ],
     "deny": []
   }

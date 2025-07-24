@@ -1,5 +1,23 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.2.0 - 2025-07-24
+**Interface Administrativa Funcional com Suporte a Emojis**
+
+### Adicionado
+- ✅ Interface Vue.js 100% funcional em http://localhost:8080/admin/
+- ✅ Sistema de versionamento conjunto (App + Infra)
+- ✅ Suporte completo a emojis em mensagens
+- ✅ Encoding UTF-8 configurado corretamente
+- ✅ Formatação de datas corrigida
+- ✅ Banco de dados com dados de exemplo e emojis
+
+### Funcionalidades
+- Interface administrativa totalmente operacional
+- CRUD completo de réguas de comunicação
+- Visualização de todos os campos (tipo, SQL, versão, data)
+- Templates com emojis para comunicação moderna
+- Sistema preparado para produção
+
 ## v1.1.0 - 2025-01-24
 **Fase 2: Interface Administrativa Vue.js - CRUD Completo**
 

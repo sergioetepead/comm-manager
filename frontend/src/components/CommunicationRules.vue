@@ -93,7 +93,14 @@ export default {
       this.loading = true
       try {
         const response = await axios.get('/api/communication-rules')
-        this.rules = response.data
+        console.log('API Response:', response.data)
+        
+        if (response.data.status === 'success') {
+          this.rules = response.data.data
+          console.log('Rules loaded:', this.rules)
+        } else {
+          this.rules = response.data
+        }
       } catch (error) {
         console.error('Erro ao carregar réguas:', error)
         alert('Erro ao carregar réguas de comunicação')
@@ -150,7 +157,25 @@ export default {
     },
     
     formatDate(dateString) {
-      return new Date(dateString).toLocaleDateString('pt-BR')
+      if (!dateString) return 'N/A'
+      
+      try {
+        // Handle MySQL datetime format: YYYY-MM-DD HH:MM:SS
+        const date = new Date(dateString.replace(' ', 'T'))
+        
+        if (isNaN(date.getTime())) {
+          return 'Data inválida'
+        }
+        
+        return date.toLocaleDateString('pt-BR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        })
+      } catch (error) {
+        console.error('Erro ao formatar data:', error)
+        return 'Data inválida'
+      }
     }
   }
 }
