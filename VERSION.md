@@ -1,5 +1,26 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.4.0 - 2025-07-24
+**FASE 2.1 CONCLUÍDA - Integração Backend ↔ Frontend Funcionando**
+
+### ✅ Integração Completa
+- 🔗 Interface Vue.js conectada com API PHP real
+- 🗄️ Banco MySQL funcionando com dados da especificação
+- 📊 Agrupamento por status funcionando com dados reais
+- 🔄 CRUD completo operacional (criar, editar, listar, ativar/desativar)
+
+### 🔧 Correções Técnicas
+- ✅ Problema de porta resolvido (8080 vs 8082) usando git intelligence
+- ✅ Apache configurado para servir Vue.js SPA corretamente
+- ✅ Volumes Docker mapeados para frontend build
+- ✅ Dados reais da especificação: lead_captacaod0, students_inadimplentes
+
+### 🎯 Funcionalidades Testadas
+- API endpoints com novos campos (send_time_start, execution_order, etc.)
+- Validação de nome formato status_substatus
+- Template ID pequeno conforme especificação
+- Agrupamento visual por status na interface
+
 ## v2.3.0 - 2025-07-24
 **Interface Reorganizada Conforme Especificação**
 

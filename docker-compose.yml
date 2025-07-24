@@ -10,9 +10,10 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./src:/var/www/html
+      - ./frontend/dist:/var/www/html/admin
       - ./docker/apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
     ports:
-      - "8082:80"
+      - "8080:80"
     depends_on:
       - db
     environment:
@@ -36,7 +37,7 @@ services:
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
       - dbdata:/var/lib/mysql
     ports:
-      - "3308:3306"
+      - "3307:3306"
     networks:
       - comm-manager-network
 
@@ -50,7 +51,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: root123
     ports:
-      - "8083:80"
+      - "8081:80"
     depends_on:
       - db
     networks:

@@ -26,7 +26,8 @@
       "WebFetch(domain:localhost)",
       "Bash(npx vite:*)",
       "Bash(docker volume:*)",
-      "Bash(docker system prune:*)"
+      "Bash(docker system prune:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }
