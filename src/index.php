@@ -1,3 +1,8 @@
+<?php
+require_once 'utils/version.php';
+$versionReader = new VersionReader();
+$versionInfo = $versionReader->getVersionInfo();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -68,7 +73,8 @@
         </div>
         
         <div class="status info">
-            <strong>ℹ️ Fase Atual: Foundation & Core Backend</strong><br>
+            <strong>ℹ️ Versão Atual: v<?php echo $versionInfo['version']; ?></strong><br>
+            <?php echo $versionInfo['description']; ?> - <?php echo $versionInfo['date']; ?><br>
             Docker Compose configurado com PHP 8.2, Apache e MySQL 8.0
         </div>
         

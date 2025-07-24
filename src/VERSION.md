@@ -1,5 +1,20 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v1.0.2 - 2025-01-24
+**Display de Versão Dinâmico - Sistema de Versionamento Visual**
+
+### Adicionado
+- ✅ Classe VersionReader em PHP para ler VERSION.md
+- ✅ Página inicial convertida para PHP (index.php)
+- ✅ Display dinâmico da versão atual na página inicial
+- ✅ VERSION.md movido para src/ para acesso via web
+- ✅ Apache configurado para servir index.php como padrão
+
+### Funcionalidade
+- A página http://localhost:8080 agora mostra a versão atual automaticamente
+- Ao editar VERSION.md e fazer push, a versão é atualizada com refresh da página
+- Sistema visual para confirmar que nova versão foi carregada
+
 ## v1.0.1 - 2025-01-24
 **Correções de Configuração - Apache e API funcionando**
 
