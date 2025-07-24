@@ -14,18 +14,24 @@
             type="text" 
             id="name"
             required
-            placeholder="Ex: Boas-vindas novos alunos"
+            :class="{ 'invalid': !isValidName }"
+            placeholder="Ex: leads_novos, students_inadimplentes"
           >
+          <small class="form-help">
+            Use o formato <strong>status_substatus</strong> (ex: leads_novos, students_ativos, pagamentos_vencidos)
+          </small>
+          <small v-if="!isValidName && formData.name" class="form-error">
+            ❌ Nome deve seguir o formato status_substatus (letras minúsculas e underscore)
+          </small>
         </div>
         
         <div class="form-group">
-          <label for="type">Tipo de Comunicação *</label>
+          <label for="type">Canal de Comunicação *</label>
           <select v-model="formData.type" id="type" required>
-            <option value="">Selecione o tipo</option>
-            <option value="email">E-mail</option>
-            <option value="sms">SMS</option>
-            <option value="whatsapp">WhatsApp</option>
-            <option value="push">Push Notification</option>
+            <option value="">Selecione o canal</option>
+            <option value="EMAIL">E-mail</option>
+            <option value="SMS">SMS</option>
+            <option value="WHATSAPP">WhatsApp</option>
           </select>
         </div>
         
@@ -44,35 +50,66 @@
         </div>
         
         <div class="form-group">
-          <label for="message_template">Template da Mensagem</label>
-          <textarea 
+          <label for="message_template">Template ID *</label>
+          <input 
             v-model="formData.message_template"
+            type="text"
             id="message_template"
-            rows="4"
-            placeholder="Olá {nome}, bem-vindo(a) ao ETEP!"
-          ></textarea>
+            required
+            placeholder="TPL_001, BOAS_VINDAS_001, PAG_LEMBRETE_002"
+          >
           <small class="form-help">
-            Use {campo} para variáveis dinâmicas baseadas na consulta SQL
+            ID do template no Twilio/SendGrid (ex: TPL_001, WELCOME_TEMPLATE)
           </small>
         </div>
         
+        <div class="form-row">
+          <div class="form-group">
+            <label for="send_time_start">Horário Início</label>
+            <input 
+              v-model="formData.send_time_start"
+              type="time"
+              id="send_time_start"
+              placeholder="08:00"
+            >
+          </div>
+          <div class="form-group">
+            <label for="send_time_end">Horário Fim</label>
+            <input 
+              v-model="formData.send_time_end"
+              type="time"
+              id="send_time_end"
+              placeholder="18:00"
+            >
+          </div>
+        </div>
+        
         <div class="form-group">
-          <label for="description">Descrição</label>
-          <textarea 
-            v-model="formData.description"
-            id="description"
-            rows="3"
-            placeholder="Descrição da finalidade desta régua..."
-          ></textarea>
+          <label for="execution_order">Ordem de Execução</label>
+          <input 
+            v-model.number="formData.execution_order"
+            type="number"
+            id="execution_order"
+            min="1"
+            placeholder="1"
+          >
+          <small class="form-help">
+            Define a ordem de execução dentro do mesmo grupo (opcional)
+          </small>
         </div>
         
         <div class="form-actions">
-          <button type="button" @click="$emit('cancel')" class="btn-secondary">
-            Cancelar
+          <button type="button" @click="testSQL" class="btn-test" :disabled="!formData.sql_query">
+            🧪 Testar SQL
           </button>
-          <button type="submit" class="btn-primary">
-            {{ rule ? 'Atualizar' : 'Criar' }} Régua
-          </button>
+          <div class="action-buttons">
+            <button type="button" @click="$emit('cancel')" class="btn-secondary">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary" :disabled="!isValidName">
+              {{ rule ? 'Atualizar' : 'Criar' }} Régua
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -96,8 +133,11 @@ export default {
         type: '',
         sql_query: '',
         message_template: '',
-        description: ''
-      }
+        send_time_start: '',
+        send_time_end: '',
+        execution_order: null
+      },
+      sqlTestResult: null
     }
   },
   mounted() {
@@ -105,9 +145,32 @@ export default {
       this.formData = { ...this.rule }
     }
   },
+  computed: {
+    isValidName() {
+      if (!this.formData.name) return true // Allow empty for validation message
+      // Regex: letters, numbers, underscore, must contain at least one underscore
+      return /^[a-z0-9]+_[a-z0-9_]*$/.test(this.formData.name)
+    }
+  },
   methods: {
     handleSubmit() {
+      if (!this.isValidName) {
+        alert('Nome deve seguir o formato status_substatus')
+        return
+      }
       this.$emit('save', this.formData)
+    },
+    
+    async testSQL() {
+      if (!this.formData.sql_query) return
+      
+      try {
+        // TODO: Implement API call to test SQL
+        alert('Funcionalidade de teste SQL será implementada na próxima fase')
+      } catch (error) {
+        console.error('Erro ao testar SQL:', error)
+        alert('Erro ao testar SQL')
+      }
     }
   }
 }
@@ -173,6 +236,17 @@ export default {
   margin-bottom: 1.5rem;
 }
 
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
@@ -214,10 +288,15 @@ export default {
 
 .form-actions {
   display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   padding-top: 1rem;
   border-top: 1px solid #e9ecef;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
 }
 
 .btn-primary, .btn-secondary {
@@ -245,5 +324,39 @@ export default {
 
 .btn-secondary:hover {
   background-color: #545b62;
+}
+
+.btn-test {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-test:hover:not(:disabled) {
+  background-color: #117a8b;
+}
+
+.btn-test:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.form-group input.invalid,
+.form-group select.invalid,
+.form-group textarea.invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.form-error {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #dc3545;
 }
 </style>
