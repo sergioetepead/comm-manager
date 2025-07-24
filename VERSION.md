@@ -1,5 +1,26 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.3.0 - 2025-07-24
+**Interface Reorganizada Conforme Especificação**
+
+### Reformulado
+- ✅ Campo Template: pequeno input para ID (TPL_001, WELCOME_TEMPLATE)
+- ✅ Canal de Comunicação: renomeado de "Tipo" com opções EMAIL/SMS/WHATSAPP
+- ✅ Novos campos: send_time_start, send_time_end, execution_order
+- ✅ Validação de nome: formato status_substatus obrigatório com feedback visual
+- ✅ Agrupamento por status: réguas organizadas por prefixo do nome
+- ✅ Botão "Testar SQL" preparado para implementação futura
+
+### Removido
+- ❌ Campo description removido conforme especificação
+- ❌ Sugestões de {campo} no template removidas
+
+### Interface Melhorada
+- 🔢 Contadores por grupo de status
+- 📊 Ordenação por execution_order depois por nome
+- 🔴 Validação visual com campo vermelho para nomes inválidos
+- 📝 Dicas contextuais para formato correto
+
 ## v2.2.0 - 2025-07-24
 **Interface Vue.js Corrigida - Deploy Automatizado**
 
