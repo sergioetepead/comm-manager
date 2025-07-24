@@ -1,5 +1,21 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v1.0.1 - 2025-01-24
+**Correções de Configuração - Apache e API funcionando**
+
+### Corrigido
+- ✅ Configuração do Apache para eliminar loop de redirects
+- ✅ Adicionado .htaccess para roteamento correto da API
+- ✅ Movido index.html para diretório correto
+- ✅ API /api/test funcionando e conectando no MySQL
+- ✅ PHPMyAdmin acessível e funcional
+
+### Detalhes Técnicos
+- DocumentRoot configurado para /var/www/html
+- AllowOverride habilitado para uso do .htaccess
+- DirectoryIndex configurado para index.php na pasta /api
+- Rewrite rules funcionando corretamente
+
 ## v1.0.0 - 2025-01-24
 **Fase 1: Foundation & Core Backend - Infraestrutura Base**
 
