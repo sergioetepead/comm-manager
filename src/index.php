@@ -85,15 +85,6 @@ $versionInfo = $versionReader->getVersionInfo();
             <a href="http://localhost:8081" target="_blank">PHPMyAdmin</a>
         </div>
         
-        <div style="margin-top: 30px; font-size: 14px; color: #666; text-align: center;">
-            <p><strong>Próximos Passos:</strong></p>
-            <ul style="text-align: left; display: inline-block;">
-                <li>Implementar endpoints da API REST</li>
-                <li>Criar models para communication_rules</li>
-                <li>Desenvolver interface Vue.js</li>
-                <li>Integrar sistema de execução</li>
-            </ul>
-        </div>
     </div>
 </body>
 </html>
