@@ -8,10 +8,10 @@ class Database {
     private $conn;
 
     public function __construct() {
-        $this->host = $_ENV['DB_HOST'] ?? 'db';
+        $this->host = $_ENV['DB_HOST'] ?? 'comm-manager-infra-db-1';
         $this->db_name = $_ENV['DB_DATABASE'] ?? 'comm_manager';
         $this->username = $_ENV['DB_USERNAME'] ?? 'root';
-        $this->password = $_ENV['DB_PASSWORD'] ?? 'root123';
+        $this->password = $_ENV['DB_PASSWORD'] ?? 'root';
     }
 
     public function getConnection() {

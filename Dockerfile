@@ -1,3 +1,12 @@
+# Stage 1: Build frontend
+FROM node:18 AS frontend-builder
+WORKDIR /app
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: PHP + Apache
 FROM php:8.2-apache
 
 # Instalar extensões PHP necessárias
@@ -23,6 +32,9 @@ WORKDIR /var/www/html
 
 # Copiar arquivos da aplicação
 COPY src/ /var/www/html/
+
+# Copiar build do frontend do stage anterior
+COPY --from=frontend-builder /app/dist/ /var/www/html/admin/
 
 # Ajustar permissões
 RUN chown -R www-data:www-data /var/www/html \
