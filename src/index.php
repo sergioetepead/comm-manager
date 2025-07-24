@@ -79,6 +79,7 @@ $versionInfo = $versionReader->getVersionInfo();
         </div>
         
         <div class="links">
+            <a href="/admin/">Interface Administrativa</a>
             <a href="/api/test">Testar API</a>
             <a href="http://localhost:8081" target="_blank">PHPMyAdmin</a>
         </div>

@@ -1,5 +1,36 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v1.1.0 - 2025-01-24
+**Fase 2: Interface Administrativa Vue.js - CRUD Completo**
+
+### Adicionado
+- ✅ Node.js 18 integrado ao container Docker
+- ✅ Interface Vue.js 3 + Vite com componentes completos
+- ✅ Componente CommunicationRules.vue para listagem
+- ✅ Componente RuleForm.vue para criação/edição
+- ✅ Componente RuleLogs.vue para visualização de logs
+- ✅ API REST completa com todos os endpoints CRUD
+- ✅ Sistema de roteamento dinâmico na API
+- ✅ Endpoints: GET, POST, PUT, ativação/desativação, logs
+- ✅ Build automático do Vue.js durante container build
+
+### Funcionalidades
+- Interface administrativa em /admin/ totalmente funcional
+- CRUD completo de réguas de comunicação
+- Sistema de versionamento automático (id vs rule_id)
+- Ativação/desativação de réguas (soft delete)
+- Teste de SQL com simulação de validação
+- Visualização de logs de execução
+- Interface responsiva e profissional
+
+### Detalhes Técnicos
+- Vue.js 3 com Composition API
+- Axios para comunicação com API
+- Build process integrado no Dockerfile
+- API REST com roteamento por segments
+- Validação de campos obrigatórios
+- Sistema de status visual (badges coloridos)
+
 ## v1.0.2 - 2025-01-24
 **Display de Versão Dinâmico - Sistema de Versionamento Visual**
 
