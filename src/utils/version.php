@@ -5,8 +5,8 @@ class VersionReader {
     private $infraVersionFile;
     
     public function __construct() {
-        $this->versionFile = __DIR__ . '/../VERSION.md';
-        $this->infraVersionFile = __DIR__ . '/../../comm-manager-infra/VERSION.md';
+        $this->versionFile = '/var/www/VERSION.md'; // Mounted VERSION.md
+        $this->infraVersionFile = '/var/www/VERSION.md'; // Same file for integrated setup
     }
     
     public function getCurrentVersion() {
@@ -46,7 +46,7 @@ class VersionReader {
         $content = file_get_contents($this->versionFile);
         
         // Procura pela primeira entrada de versão
-        if (preg_match('/^## v([0-9]+\.[0-9]+\.[0-9]+) - ([0-9-]+)\s*\n\*\*(.+?)\*\*/m', $content, $matches)) {
+        if (preg_match('/^## v([0-9]+\.[0-9]+\.[0-9]+) - ([0-9-]+)\s*\n\*\*(.+?)\*\*/ms', $content, $matches)) {
             return [
                 'version' => $matches[1],
                 'date' => $matches[2],
@@ -73,7 +73,7 @@ class VersionReader {
         $content = file_get_contents($this->infraVersionFile);
         
         // Procura pela primeira entrada de versão
-        if (preg_match('/^## v([0-9]+\.[0-9]+\.[0-9]+) - ([0-9-]+)\s*\n\*\*(.+?)\*\*/m', $content, $matches)) {
+        if (preg_match('/^## v([0-9]+\.[0-9]+\.[0-9]+) - ([0-9-]+)\s*\n\*\*(.+?)\*\*/ms', $content, $matches)) {
             return [
                 'version' => $matches[1],
                 'date' => $matches[2],

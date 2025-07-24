@@ -10,6 +10,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./src:/var/www/html
+      - ./VERSION.md:/var/www/VERSION.md
       - ./frontend/dist:/var/www/html/admin
       - ./docker/apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
     ports:
