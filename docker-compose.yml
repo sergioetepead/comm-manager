@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: comm-manager-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+      - ./docker/apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=comm_manager
+      - DB_USERNAME=root
+      - DB_PASSWORD=root123
+    networks:
+      - comm-manager-network
+
+  db:
+    image: mysql:8.0
+    container_name: comm-manager-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: comm_manager
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_PASSWORD: root123
+      MYSQL_USER: app_user
+    volumes:
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - comm-manager-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: comm-manager-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - comm-manager-network
+
+volumes:
+  dbdata:
+
+networks:
+  comm-manager-network:
+    driver: bridge
