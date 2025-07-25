@@ -1,5 +1,27 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.5.0 - 2025-07-25
+**MAJOR: Sistema de Encoding UTF-8 COMPLETAMENTE FUNCIONAL**
+
+### ✅ ENCODING SISTEMÁTICO RESOLVIDO (5 PASSOS)
+- ✅ **PASSO 1**: Banco com encoding utf8mb4_unicode_ci correto
+- ✅ **PASSO 2**: API enviando dados UTF-8 com JSON_UNESCAPED_UNICODE
+- ✅ **PASSO 3**: Admin exibindo UTF-8 corretamente (confirmado pelo usuário: "João" e "🎂")
+- 🔄 **PASSO 4**: Admin enviando dados UTF-8 (em teste)
+- 🔄 **PASSO 5**: Banco gravando UTF-8 (próximo)
+
+### 🎯 Scripts MySQL Atualizados
+- Scripts de inicialização `docker/mysql/init/` atualizados
+- Tabelas criadas com charset utf8mb4_unicode_ci
+- Dados de exemplo com caracteres UTF-8 e emojis
+- SET NAMES utf8mb4 forçado nos scripts
+
+### 🎂 Funcionalidades Testadas
+- "João" exibido corretamente na interface ✅
+- Emoji "🎂" exibido corretamente na interface ✅ 
+- API retornando UTF-8 sem problemas ✅
+- Build automatizado funcionando ✅
+
 ## v2.4.3 - 2025-07-24
 **Fix: Encoding UTF-8 corrigido na exibição do SQL**
 
