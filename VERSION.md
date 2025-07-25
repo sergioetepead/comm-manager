@@ -1,5 +1,27 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.6.0 - 2025-07-25
+**MAJOR: Interface Totalmente Funcional + CRUD Completo**
+
+### ✅ FUNCIONALIDADES COMPLETAS VALIDADAS
+- ✅ **Criação de réguas**: Funcionando com UTF-8 ✅
+- ✅ **Edição de réguas**: Funcionando perfeitamente ✅  
+- ✅ **Ativar/Desativar**: Funcionando perfeitamente ✅
+- ✅ **Exibição de campos**: Canal, Template, Horário, Ordem todos visíveis ✅
+- ✅ **Mapeamento correto**: Frontend ↔ API fields (type→channel, message_template→template_id) ✅
+
+### ✅ ENCODING UTF-8 SISTEMÁTICO COMPLETO (5/5 PASSOS) 🎉
+- ✅ **PASSO 1**: Banco com encoding utf8mb4_unicode_ci correto
+- ✅ **PASSO 2**: API enviando dados UTF-8 com JSON_UNESCAPED_UNICODE  
+- ✅ **PASSO 3**: Admin exibindo UTF-8 corretamente (confirmado: "João" e "🎂")
+- ✅ **PASSO 4**: Admin enviando UTF-8 (mb_convert_encoding na API) ✅
+- ✅ **PASSO 5**: Banco gravando UTF-8 ✅ (confirmado via interface: "José da Silva 🎂")
+
+### 🎯 Melhorias UX Identificadas (Backlog)
+- Mensagem erro nome duplicado mais amigável
+- Campos opcionais (horário/ordem) com toggle habilitação
+- Fix: campos vazios salvando 00:00:00 → deveria ser N/A
+
 ## v2.5.0 - 2025-07-25
 **MAJOR: Sistema de Encoding UTF-8 COMPLETAMENTE FUNCIONAL**
 
