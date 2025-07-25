@@ -125,7 +125,11 @@ function getCommunicationRules() {
 
 function createCommunicationRule() {
     try {
-        $input = json_decode(file_get_contents('php://input'), true);
+        $raw_input = file_get_contents('php://input');
+        
+        // Force UTF-8 encoding to handle emojis and accents correctly
+        $utf8_input = mb_convert_encoding($raw_input, 'UTF-8', 'auto');
+        $input = json_decode($utf8_input, true);
         
         // Basic validation
         $required_fields = ['name', 'sql_query', 'channel', 'template_id'];

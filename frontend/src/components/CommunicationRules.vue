@@ -47,10 +47,11 @@
               </div>
               
               <div class="rule-body">
-                <p><strong>Canal:</strong> {{ rule.type }}</p>
+                <p><strong>Canal:</strong> {{ rule.channel }}</p>
                 <p><strong>SQL:</strong> <code>{{ rule.sql_query }}</code></p>
-                <p><strong>Template:</strong> {{ rule.message_template }}</p>
-                <p><strong>Versão:</strong> {{ rule.version }}</p>
+                <p><strong>Template:</strong> {{ rule.template_id }}</p>
+                <p><strong>Horário:</strong> {{ rule.send_time_start || 'N/A' }} - {{ rule.send_time_end || 'N/A' }}</p>
+                <p><strong>Ordem:</strong> {{ rule.execution_order || 'N/A' }}</p>
                 <p><strong>Criada:</strong> {{ formatDate(rule.created_at) }}</p>
               </div>
               
@@ -180,7 +181,12 @@ export default {
     },
     
     editRule(rule) {
-      this.editingRule = { ...rule }
+      // Map API fields to frontend fields
+      this.editingRule = { 
+        ...rule,
+        type: rule.channel,  // Map 'channel' to 'type' for frontend
+        message_template: rule.template_id  // Map 'template_id' to 'message_template'
+      }
       this.showForm = true
     },
     
@@ -203,13 +209,23 @@ export default {
     
     async handleSave(ruleData) {
       try {
+        // Map frontend fields to API fields
+        const apiData = {
+          ...ruleData,
+          channel: ruleData.type,  // Map 'type' to 'channel'
+          template_id: ruleData.message_template  // Map 'message_template' to 'template_id'
+        }
+        // Remove frontend-only fields
+        delete apiData.type
+        delete apiData.message_template
+        
         if (this.editingRule) {
           // Editar
-          await axios.put(`/api/communication-rules/${this.editingRule.id}`, ruleData)
+          await axios.put(`/api/communication-rules/${this.editingRule.id}`, apiData)
           alert('Régua atualizada com sucesso!')
         } else {
           // Criar
-          await axios.post('/api/communication-rules', ruleData)
+          await axios.post('/api/communication-rules', apiData)
           alert('Régua criada com sucesso!')
         }
         

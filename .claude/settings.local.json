@@ -29,7 +29,8 @@
       "Bash(docker system prune:*)",
       "Bash(ls:*)",
       "Bash(git tag:*)",
-      "Bash(vite build)"
+      "Bash(vite build)",
+      "Bash(docker logs:*)"
     ],
     "deny": []
   }
