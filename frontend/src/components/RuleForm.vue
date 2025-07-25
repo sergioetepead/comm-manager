@@ -11,17 +11,29 @@
           <label for="name">Nome da Régua *</label>
           <input 
             v-model="formData.name"
+            @input="checkNameAvailability"
             type="text" 
             id="name"
             required
-            :class="{ 'invalid': !isValidName }"
+            :class="{ 'invalid': !isValidName || nameAvailable === false }"
+            :disabled="!!rule"
             placeholder="Ex: leads_novos, students_inadimplentes"
           >
           <small class="form-help">
-            Use o formato <strong>status_substatus</strong> (ex: leads_novos, students_ativos, pagamentos_vencidos)
+            <span v-if="!rule">Use o formato <strong>status_substatus</strong> (ex: leads_novos, students_ativos, pagamentos_vencidos)</span>
+            <span v-else>Nome não pode ser alterado durante edição</span>
           </small>
           <small v-if="!isValidName && formData.name" class="form-error">
             ❌ Nome deve seguir o formato status_substatus (letras minúsculas e underscore)
+          </small>
+          <small v-if="isValidName && nameCheckLoading && !rule" class="form-info">
+            🔍 Verificando disponibilidade...
+          </small>
+          <small v-if="isValidName && nameAvailable === false && !rule" class="form-error">
+            ❌ Nome já existe. Use outro.
+          </small>
+          <small v-if="isValidName && nameAvailable === true && !rule" class="form-success">
+            ✅ Nome disponível!
           </small>
         </div>
         
@@ -117,6 +129,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'RuleForm',
   props: {
@@ -137,7 +151,9 @@ export default {
         send_time_end: '',
         execution_order: null
       },
-      sqlTestResult: null
+      sqlTestResult: null,
+      nameAvailable: null,
+      nameCheckLoading: false
     }
   },
   mounted() {
@@ -158,6 +174,10 @@ export default {
         alert('Nome deve seguir o formato status_substatus')
         return
       }
+      if (!this.rule && this.nameAvailable === false) {
+        alert('Nome já existe. Use outro nome.')
+        return
+      }
       this.$emit('save', this.formData)
     },
     
@@ -171,12 +191,59 @@ export default {
         console.error('Erro ao testar SQL:', error)
         alert('Erro ao testar SQL')
       }
+    },
+    
+    checkNameAvailability() {
+      // Reset state
+      this.nameAvailable = null
+      
+      // Don't check if editing or invalid format
+      if (this.rule || !this.isValidName || !this.formData.name) {
+        return
+      }
+      
+      // Debounce the API call
+      clearTimeout(this.nameCheckTimeout)
+      this.nameCheckTimeout = setTimeout(async () => {
+        try {
+          this.nameCheckLoading = true
+          const response = await axios.post('/api/communication-rules/check-name', {
+            name: this.formData.name
+          })
+          this.nameAvailable = !response.data.exists
+        } catch (error) {
+          console.error('Erro ao verificar nome:', error)
+          this.nameAvailable = null
+        } finally {
+          this.nameCheckLoading = false
+        }
+      }, 500) // 500ms debounce
     }
   }
 }
 </script>
 
 <style scoped>
+.form-error {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.form-success {
+  color: #28a745;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.form-info {
+  color: #17a2b8;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
 .rule-form-overlay {
   position: fixed;
   top: 0;

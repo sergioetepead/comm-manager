@@ -181,11 +181,17 @@ export default {
     },
     
     editRule(rule) {
-      // Map API fields to frontend fields
+      // Map API fields to frontend fields - only send editable fields
       this.editingRule = { 
-        ...rule,
+        id: rule.id,  // Keep ID for update
+        name: rule.name,
+        sql_query: rule.sql_query,
         type: rule.channel,  // Map 'channel' to 'type' for frontend
-        message_template: rule.template_id  // Map 'template_id' to 'message_template'
+        message_template: rule.template_id,  // Map 'template_id' to 'message_template'
+        send_time_start: rule.send_time_start,
+        send_time_end: rule.send_time_end,
+        execution_order: rule.execution_order,
+        active: rule.active
       }
       this.showForm = true
     },

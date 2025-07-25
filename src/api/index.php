@@ -43,6 +43,10 @@ try {
             testCommunicationRule();
             break;
             
+        case $path === '/communication-rules/check-name' && $method === 'POST':
+            checkRuleName();
+            break;
+            
         case count($segments) === 2 && $segments[0] === 'communication-rules' && $method === 'GET':
             getCommunicationRule($segments[1]);
             break;
@@ -142,6 +146,16 @@ function createCommunicationRule() {
         $database = new Database();
         $conn = $database->getConnection();
         
+        // Check if name already exists for active rules
+        $checkQuery = "SELECT COUNT(*) as count FROM communication_rules WHERE name = ? AND superseded = FALSE";
+        $checkStmt = $conn->prepare($checkQuery);
+        $checkStmt->execute([$input['name']]);
+        $existing = $checkStmt->fetch();
+        
+        if ($existing['count'] > 0) {
+            throw new Exception("Régua com esse nome já existe. Localize a régua existente e edite-a.");
+        }
+        
         // Generate rule_id if not provided
         $rule_id = $input['rule_id'] ?? uniqid('rule_');
         
@@ -216,7 +230,12 @@ function getCommunicationRule($id) {
 
 function updateCommunicationRule($id) {
     try {
-        $input = json_decode(file_get_contents('php://input'), true);
+        $raw_input = file_get_contents('php://input');
+        $utf8_input = mb_convert_encoding($raw_input, 'UTF-8', 'auto');
+        $input = json_decode($utf8_input, true);
+        
+        error_log("UPDATE Rule ID: $id");
+        error_log("UPDATE Input: " . json_encode($input));
         
         $database = new Database();
         $conn = $database->getConnection();
@@ -252,7 +271,8 @@ function updateCommunicationRule($id) {
         };
         
         $stmt = $conn->prepare($query);
-        $stmt->execute([
+        
+        $params = [
             $currentRule['rule_id'], // Keep same rule_id
             $input['name'] ?? $currentRule['name'],
             $input['sql_query'] ?? $currentRule['sql_query'],
@@ -262,7 +282,11 @@ function updateCommunicationRule($id) {
             $nullIfEmpty($input['send_time_end'] ?? $currentRule['send_time_end']),
             $nullIfEmpty($input['execution_order'] ?? $currentRule['execution_order']),
             isset($input['active']) ? (bool)$input['active'] : (bool)$currentRule['active']
-        ]);
+        ];
+        
+        error_log("UPDATE Params: " . json_encode($params));
+        $result = $stmt->execute($params);
+        error_log("UPDATE Execute result: " . ($result ? 'SUCCESS' : 'FAILED'));
         
         echo json_encode([
             'status' => 'success',
@@ -403,6 +427,41 @@ function testCommunicationRule() {
             'simulation' => true,
             'expected_fields' => ['first_name', 'contact', 'payload'],
             'note' => 'This is a simulation. Real SQL execution would be implemented in production.'
+        ]);
+        
+    } catch (Exception $e) {
+        http_response_code(400);
+        echo json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ]);
+    }
+}
+
+function checkRuleName() {
+    try {
+        $raw_input = file_get_contents('php://input');
+        $utf8_input = mb_convert_encoding($raw_input, 'UTF-8', 'auto');
+        $input = json_decode($utf8_input, true);
+        
+        if (!isset($input['name']) || empty($input['name'])) {
+            throw new Exception("Name is required");
+        }
+        
+        $database = new Database();
+        $conn = $database->getConnection();
+        
+        $query = "SELECT COUNT(*) as count FROM communication_rules WHERE name = ? AND superseded = FALSE";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$input['name']]);
+        $result = $stmt->fetch();
+        
+        $exists = $result['count'] > 0;
+        
+        echo json_encode([
+            'status' => 'success',
+            'exists' => $exists,
+            'message' => $exists ? 'Nome já existe. Use outro.' : 'Nome disponível.'
         ]);
         
     } catch (Exception $e) {
