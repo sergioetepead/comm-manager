@@ -166,7 +166,10 @@ function createCommunicationRule() {
         $stmt = $conn->prepare($query);
         // Helper function to convert empty strings to null
         $nullIfEmpty = function($value) {
-            return (isset($value) && trim($value) !== '') ? $value : null;
+            if (!isset($value) || $value === '' || $value === null || trim((string)$value) === '') {
+                return null;
+            }
+            return $value;
         };
         
         $stmt->execute([
@@ -178,7 +181,7 @@ function createCommunicationRule() {
             $nullIfEmpty($input['send_time_start'] ?? null),
             $nullIfEmpty($input['send_time_end'] ?? null),
             $nullIfEmpty($input['execution_order'] ?? null),
-            isset($input['active']) ? (bool)$input['active'] : true
+            isset($input['active']) ? (int)(bool)$input['active'] : 1
         ]);
         
         echo json_encode([
@@ -234,8 +237,6 @@ function updateCommunicationRule($id) {
         $utf8_input = mb_convert_encoding($raw_input, 'UTF-8', 'auto');
         $input = json_decode($utf8_input, true);
         
-        error_log("UPDATE Rule ID: $id");
-        error_log("UPDATE Input: " . json_encode($input));
         
         $database = new Database();
         $conn = $database->getConnection();
@@ -267,7 +268,10 @@ function updateCommunicationRule($id) {
         
         // Helper function to convert empty strings to null
         $nullIfEmpty = function($value) {
-            return (isset($value) && trim($value) !== '') ? $value : null;
+            if (!isset($value) || $value === '' || $value === null || trim((string)$value) === '') {
+                return null;
+            }
+            return $value;
         };
         
         $stmt = $conn->prepare($query);
@@ -281,12 +285,10 @@ function updateCommunicationRule($id) {
             $nullIfEmpty($input['send_time_start'] ?? $currentRule['send_time_start']),
             $nullIfEmpty($input['send_time_end'] ?? $currentRule['send_time_end']),
             $nullIfEmpty($input['execution_order'] ?? $currentRule['execution_order']),
-            isset($input['active']) ? (bool)$input['active'] : (bool)$currentRule['active']
+            isset($input['active']) ? (int)(bool)$input['active'] : (int)(bool)$currentRule['active']
         ];
         
-        error_log("UPDATE Params: " . json_encode($params));
         $result = $stmt->execute($params);
-        error_log("UPDATE Execute result: " . ($result ? 'SUCCESS' : 'FAILED'));
         
         echo json_encode([
             'status' => 'success',

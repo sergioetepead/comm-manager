@@ -1,5 +1,25 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.7.0 - 2025-07-25
+**MAJOR: UX Perfeita + Toggles Material Design Implementados**
+
+### ✅ TOGGLES MATERIAL DESIGN COMPLETOS
+- ✅ **Campos opcionais**: "Preencher horário?" e "Preencher ordem?"
+- ✅ **Lógica inteligente**: toggles habilitados automaticamente se campos preenchidos
+- ✅ **Watchers**: campos limpos automaticamente quando toggle desabilitado
+- ✅ **Demo page**: 6 estilos de toggle para escolha do usuário
+
+### ✅ VALIDAÇÃO EM TEMPO REAL FUNCIONANDO
+- ✅ **API endpoint**: `/communication-rules/check-name` 
+- ✅ **Debounce 500ms**: 🔍 Verificando → ❌ Existe → ✅ Disponível
+- ✅ **Bloqueio submit**: impede criar réguas com nome duplicado
+- ✅ **Campo nome**: desabilitado durante edição (sem confusão)
+
+### 🔧 CORREÇÕES TÉCNICAS
+- ✅ **Campo active**: convertido para int(bool) para evitar erros MySQL
+- ✅ **Função nullIfEmpty**: melhorada para tratar mais casos
+- ✅ **Sistema versionamento**: constraint UNIQUE removida para funcionar
+
 ## v2.6.0 - 2025-07-25
 **MAJOR: Interface Totalmente Funcional + CRUD Completo**
 
