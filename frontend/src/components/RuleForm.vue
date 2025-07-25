@@ -75,39 +75,61 @@
           </small>
         </div>
         
-        <div class="form-row">
-          <div class="form-group">
-            <label for="send_time_start">Horário Início</label>
-            <input 
-              v-model="formData.send_time_start"
-              type="time"
-              id="send_time_start"
-              placeholder="08:00"
-            >
+        <!-- Time Fields with Toggle -->
+        <div class="form-group">
+          <div class="toggle-header">
+            <label class="toggle-material">
+              <input type="checkbox" v-model="enableTimeFields">
+              <span class="slider-material"></span>
+            </label>
+            <span class="toggle-label">Preencher horário?</span>
           </div>
-          <div class="form-group">
-            <label for="send_time_end">Horário Fim</label>
-            <input 
-              v-model="formData.send_time_end"
-              type="time"
-              id="send_time_end"
-              placeholder="18:00"
-            >
+          
+          <div v-if="enableTimeFields" class="form-row">
+            <div class="form-group">
+              <label for="send_time_start">Horário Início</label>
+              <input 
+                v-model="formData.send_time_start"
+                type="time"
+                id="send_time_start"
+                placeholder="08:00"
+              >
+            </div>
+            <div class="form-group">
+              <label for="send_time_end">Horário Fim</label>
+              <input 
+                v-model="formData.send_time_end"
+                type="time"
+                id="send_time_end"
+                placeholder="18:00"
+              >
+            </div>
           </div>
         </div>
         
+        <!-- Execution Order with Toggle -->
         <div class="form-group">
-          <label for="execution_order">Ordem de Execução</label>
-          <input 
-            v-model.number="formData.execution_order"
-            type="number"
-            id="execution_order"
-            min="1"
-            placeholder="1"
-          >
-          <small class="form-help">
-            Define a ordem de execução dentro do mesmo grupo (opcional)
-          </small>
+          <div class="toggle-header">
+            <label class="toggle-material">
+              <input type="checkbox" v-model="enableOrderField">
+              <span class="slider-material"></span>
+            </label>
+            <span class="toggle-label">Preencher ordem de execução?</span>
+          </div>
+          
+          <div v-if="enableOrderField">
+            <label for="execution_order">Ordem de Execução</label>
+            <input 
+              v-model.number="formData.execution_order"
+              type="number"
+              id="execution_order"
+              min="1"
+              placeholder="1"
+            >
+            <small class="form-help">
+              Define a ordem de execução dentro do mesmo grupo
+            </small>
+          </div>
         </div>
         
         <div class="form-actions">
@@ -153,12 +175,17 @@ export default {
       },
       sqlTestResult: null,
       nameAvailable: null,
-      nameCheckLoading: false
+      nameCheckLoading: false,
+      enableTimeFields: false,
+      enableOrderField: false
     }
   },
   mounted() {
     if (this.rule) {
       this.formData = { ...this.rule }
+      // Enable toggles if fields have values
+      this.enableTimeFields = !!(this.rule.send_time_start && this.rule.send_time_end)
+      this.enableOrderField = !!(this.rule.execution_order)
     }
   },
   computed: {
@@ -166,6 +193,21 @@ export default {
       if (!this.formData.name) return true // Allow empty for validation message
       // Regex: letters, numbers, underscore, must contain at least one underscore
       return /^[a-z0-9]+_[a-z0-9_]*$/.test(this.formData.name)
+    }
+  },
+  watch: {
+    enableTimeFields(newVal) {
+      if (!newVal) {
+        // Clear time fields when toggle disabled
+        this.formData.send_time_start = ''
+        this.formData.send_time_end = ''
+      }
+    },
+    enableOrderField(newVal) {
+      if (!newVal) {
+        // Clear order field when toggle disabled
+        this.formData.execution_order = null
+      }
     }
   },
   methods: {
@@ -243,6 +285,67 @@ export default {
   font-size: 0.85rem;
   margin-top: 0.25rem;
   display: block;
+}
+
+/* Material Design Toggle */
+.toggle-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.toggle-label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+.toggle-material {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 36px;
+}
+
+.toggle-material input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-material {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 18px;
+}
+
+.slider-material:before {
+  position: absolute;
+  content: "";
+  height: 32px;
+  width: 32px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-material input:checked + .slider-material {
+  background-color: #81c784;
+}
+
+.toggle-material input:checked + .slider-material:before {
+  transform: translateX(28px);
+  background-color: #4caf50;
 }
 .rule-form-overlay {
   position: fixed;

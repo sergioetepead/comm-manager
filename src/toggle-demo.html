@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Buttons Demo - Escolha seu Estilo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .toggle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .toggle-item {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .toggle-item:hover {
+            border-color: #007bff;
+        }
+        
+        .toggle-item h3 {
+            margin: 0 0 15px 0;
+            color: #495057;
+        }
+        
+        .toggle-item .id {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        /* Toggle Style 1 - iOS Style */
+        .toggle-ios {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .toggle-ios input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider-ios {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider-ios:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        .toggle-ios input:checked + .slider-ios {
+            background-color: #2196F3;
+        }
+        
+        .toggle-ios input:checked + .slider-ios:before {
+            transform: translateX(26px);
+        }
+        
+        /* Toggle Style 2 - Green/Red */
+        .toggle-green-red {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+        }
+        
+        .toggle-green-red input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider-green-red {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f44336;
+            transition: .4s;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .slider-green-red:before {
+            content: "OFF";
+            position: absolute;
+            height: 32px;
+            width: 32px;
+            right: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f44336;
+            font-size: 8px;
+        }
+        
+        .toggle-green-red input:checked + .slider-green-red {
+            background-color: #4caf50;
+        }
+        
+        .toggle-green-red input:checked + .slider-green-red:before {
+            content: "ON";
+            transform: translateX(-40px);
+            color: #4caf50;
+        }
+        
+        /* Toggle Style 3 - Material Design */
+        .toggle-material {
+            position: relative;
+            display: inline-block;
+            width: 64px;
+            height: 36px;
+        }
+        
+        .toggle-material input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider-material {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 18px;
+        }
+        
+        .slider-material:before {
+            position: absolute;
+            content: "";
+            height: 32px;
+            width: 32px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .toggle-material input:checked + .slider-material {
+            background-color: #81c784;
+        }
+        
+        .toggle-material input:checked + .slider-material:before {
+            transform: translateX(28px);
+            background-color: #4caf50;
+        }
+        
+        /* Toggle Style 4 - Rounded Square */
+        .toggle-square {
+            position: relative;
+            display: inline-block;
+            width: 70px;
+            height: 35px;
+        }
+        
+        .toggle-square input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider-square {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ddd;
+            transition: .4s;
+            border-radius: 8px;
+        }
+        
+        .slider-square:before {
+            position: absolute;
+            content: "";
+            height: 27px;
+            width: 27px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .toggle-square input:checked + .slider-square {
+            background-color: #007bff;
+        }
+        
+        .toggle-square input:checked + .slider-square:before {
+            transform: translateX(35px);
+        }
+        
+        /* Toggle Style 5 - Emoji Style */
+        .toggle-emoji {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+        }
+        
+        .toggle-emoji input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider-emoji {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffebee;
+            transition: .4s;
+            border-radius: 20px;
+            border: 2px solid #f44336;
+        }
+        
+        .slider-emoji:before {
+            position: absolute;
+            content: "❌";
+            height: 32px;
+            width: 32px;
+            left: 4px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .toggle-emoji input:checked + .slider-emoji {
+            background-color: #e8f5e8;
+            border-color: #4caf50;
+        }
+        
+        .toggle-emoji input:checked + .slider-emoji:before {
+            content: "✅";
+            transform: translateX(40px);
+        }
+        
+        /* Toggle Style 6 - Gradient */
+        .toggle-gradient {
+            position: relative;
+            display: inline-block;
+            width: 75px;
+            height: 38px;
+        }
+        
+        .toggle-gradient input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider-gradient {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            transition: .4s;
+            border-radius: 19px;
+        }
+        
+        .slider-gradient:before {
+            position: absolute;
+            content: "";
+            height: 30px;
+            width: 30px;
+            left: 4px;
+            bottom: 4px;
+            background: linear-gradient(45deg, #ffffff, #f1f2f6);
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .toggle-gradient input:checked + .slider-gradient {
+            background: linear-gradient(45deg, #00d2d3, #54a0ff);
+        }
+        
+        .toggle-gradient input:checked + .slider-gradient:before {
+            transform: translateX(37px);
+        }
+        
+        .home-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 20px auto;
+            display: block;
+            width: fit-content;
+            transition: background 0.3s;
+        }
+        
+        .home-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎛️ Toggle Buttons Demo</h1>
+        <p style="text-align: center; color: #6c757d; margin-bottom: 30px;">
+            Escolha o estilo de toggle que mais combina com nossa interface!
+        </p>
+        
+        <div class="toggle-grid">
+            <div class="toggle-item">
+                <h3>iOS Style</h3>
+                <div class="id">ID: ios-classic</div>
+                <label class="toggle-ios">
+                    <input type="checkbox" onclick="this.checked = !this.checked">
+                    <span class="slider-ios"></span>
+                </label>
+                <p>Clássico estilo iOS, clean e minimalista</p>
+            </div>
+            
+            <div class="toggle-item">
+                <h3>Green/Red with Labels</h3>
+                <div class="id">ID: green-red-labels</div>
+                <label class="toggle-green-red">
+                    <input type="checkbox" onclick="this.checked = !this.checked">
+                    <span class="slider-green-red"></span>
+                </label>
+                <p>Verde/vermelho com ON/OFF, muito claro</p>
+            </div>
+            
+            <div class="toggle-item">
+                <h3>Material Design</h3>
+                <div class="id">ID: material-design</div>
+                <label class="toggle-material">
+                    <input type="checkbox" onclick="this.checked = !this.checked">
+                    <span class="slider-material"></span>
+                </label>
+                <p>Estilo Material Design do Google</p>
+            </div>
+            
+            <div class="toggle-item">
+                <h3>Rounded Square</h3>
+                <div class="id">ID: rounded-square</div>
+                <label class="toggle-square">
+                    <input type="checkbox" onclick="this.checked = !this.checked">
+                    <span class="slider-square"></span>
+                </label>
+                <p>Quadrado arredondado, mais moderno</p>
+            </div>
+            
+            <div class="toggle-item">
+                <h3>Emoji Style</h3>
+                <div class="id">ID: emoji-style</div>
+                <label class="toggle-emoji">
+                    <input type="checkbox" onclick="this.checked = !this.checked">
+                    <span class="slider-emoji"></span>
+                </label>
+                <p>Com emojis ✅❌, muito visual</p>
+            </div>
+            
+            <div class="toggle-item">
+                <h3>Gradient</h3>
+                <div class="id">ID: gradient-style</div>
+                <label class="toggle-gradient">
+                    <input type="checkbox" onclick="this.checked = !this.checked">
+                    <span class="slider-gradient"></span>
+                </label>
+                <p>Com gradientes coloridos, chamativo</p>
+            </div>
+        </div>
+        
+        <a href="/" class="home-btn">← Voltar para o Sistema</a>
+    </div>
+    
+    <script>
+        // Prevent the toggles from actually changing state for demo purposes
+        document.querySelectorAll('input[type="checkbox"]').forEach(input => {
+            input.addEventListener('click', function(e) {
+                setTimeout(() => {
+                    this.checked = !this.checked;
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
