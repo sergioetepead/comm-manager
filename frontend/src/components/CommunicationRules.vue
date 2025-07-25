@@ -123,7 +123,36 @@ export default {
         })
       })
       
-      return groups
+      // Create sorted groups object ordered by minimum execution_order
+      const sortedGroups = {}
+      const groupsWithOrder = []
+      const groupsWithoutOrder = []
+      
+      Object.keys(groups).forEach(status => {
+        const rulesInGroup = groups[status]
+        const minExecutionOrder = Math.min(...rulesInGroup
+          .filter(rule => rule.execution_order)
+          .map(rule => rule.execution_order))
+        
+        if (minExecutionOrder !== Infinity) {
+          groupsWithOrder.push({ status, minOrder: minExecutionOrder, rules: rulesInGroup })
+        } else {
+          groupsWithoutOrder.push({ status, rules: rulesInGroup })
+        }
+      })
+      
+      // Sort groups with execution_order by minimum order
+      groupsWithOrder.sort((a, b) => a.minOrder - b.minOrder)
+      
+      // Build final sorted groups object
+      groupsWithOrder.forEach(group => {
+        sortedGroups[group.status] = group.rules
+      })
+      groupsWithoutOrder.forEach(group => {
+        sortedGroups[group.status] = group.rules
+      })
+      
+      return sortedGroups
     }
   },
   mounted() {

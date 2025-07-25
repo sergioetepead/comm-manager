@@ -1,5 +1,19 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.4.2 - 2025-07-24
+**Fix: Ordenação de grupos por execution_order**
+
+### ✅ Correção Aplicada
+- 📊 Grupos agora ordenados por menor execution_order das réguas internas
+- 🔢 Grupos com execution_order aparecem primeiro, ordenados crescentemente
+- ⚪ Grupos sem execution_order aparecem no final
+- 🎯 Lógica: menor ordem → maior prioridade visual
+
+### 🎯 Resultado
+- Lead (execution_order: 1) → 1º lugar ✅
+- Alunoativo (execution_order: 3) → 2º lugar ✅
+- Grupos sem ordem → final ✅
+
 ## v2.4.1 - 2025-07-24
 **Fix: Nomes das seções usando status original**
 
