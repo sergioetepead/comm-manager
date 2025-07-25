@@ -27,7 +27,8 @@
       "Bash(npx vite:*)",
       "Bash(docker volume:*)",
       "Bash(docker system prune:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git tag:*)"
     ],
     "deny": []
   }

@@ -1,5 +1,17 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.4.3 - 2025-07-24
+**Fix: Encoding UTF-8 corrigido na exibição do SQL**
+
+### ✅ Correção Aplicada
+- 🔤 Forçado encoding UTF-8 na conexão PDO com MySQL
+- 📝 Adicionado SET NAMES utf8mb4 e SET CHARACTER SET utf8mb4
+- 🎯 "JoÃ£o" agora será exibido como "João" corretamente
+
+### 🎯 Resultado
+- SQL com caracteres especiais exibidos corretamente ✅
+- Acentos e emojis preservados na interface ✅
+
 ## v2.4.2 - 2025-07-24
 **Fix: Ordenação de grupos por execution_order**
 
