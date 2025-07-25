@@ -1,6 +1,10 @@
 -- Database: comm_manager
 -- Sistema de Gestão da Régua de Comunicação ETEP
 
+-- Force UTF-8 encoding for the session
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+SET CHARACTER SET utf8mb4;
+
 -- Tabela principal das regras de comunicação
 CREATE TABLE IF NOT EXISTS communication_rules (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -20,7 +24,7 @@ CREATE TABLE IF NOT EXISTS communication_rules (
     INDEX idx_name (name),
     INDEX idx_active (active),
     INDEX idx_created_at (created_at)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Tabela de logs de execução/dispatch das regras
 CREATE TABLE IF NOT EXISTS rule_dispatch_log (
@@ -35,4 +39,4 @@ CREATE TABLE IF NOT EXISTS rule_dispatch_log (
     
     INDEX idx_timestamp (rule_dispatch_timestamp),
     INDEX idx_status (execution_status)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
