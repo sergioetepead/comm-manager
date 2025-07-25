@@ -150,15 +150,20 @@ function createCommunicationRule() {
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $conn->prepare($query);
+        // Helper function to convert empty strings to null
+        $nullIfEmpty = function($value) {
+            return (isset($value) && trim($value) !== '') ? $value : null;
+        };
+        
         $stmt->execute([
             $rule_id,
             $input['name'],
             $input['sql_query'],
             $input['channel'],
             $input['template_id'],
-            $input['send_time_start'] ?? null,
-            $input['send_time_end'] ?? null,
-            $input['execution_order'] ?? null,
+            $nullIfEmpty($input['send_time_start'] ?? null),
+            $nullIfEmpty($input['send_time_end'] ?? null),
+            $nullIfEmpty($input['execution_order'] ?? null),
             isset($input['active']) ? (bool)$input['active'] : true
         ]);
         
@@ -241,6 +246,11 @@ function updateCommunicationRule($id) {
                   (rule_id, name, sql_query, channel, template_id, send_time_start, send_time_end, execution_order, active) 
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
+        // Helper function to convert empty strings to null
+        $nullIfEmpty = function($value) {
+            return (isset($value) && trim($value) !== '') ? $value : null;
+        };
+        
         $stmt = $conn->prepare($query);
         $stmt->execute([
             $currentRule['rule_id'], // Keep same rule_id
@@ -248,9 +258,9 @@ function updateCommunicationRule($id) {
             $input['sql_query'] ?? $currentRule['sql_query'],
             $input['channel'] ?? $currentRule['channel'],
             $input['template_id'] ?? $currentRule['template_id'],
-            $input['send_time_start'] ?? $currentRule['send_time_start'],
-            $input['send_time_end'] ?? $currentRule['send_time_end'],
-            $input['execution_order'] ?? $currentRule['execution_order'],
+            $nullIfEmpty($input['send_time_start'] ?? $currentRule['send_time_start']),
+            $nullIfEmpty($input['send_time_end'] ?? $currentRule['send_time_end']),
+            $nullIfEmpty($input['execution_order'] ?? $currentRule['execution_order']),
             isset($input['active']) ? (bool)$input['active'] : (bool)$currentRule['active']
         ]);
         
