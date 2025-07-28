@@ -60,12 +60,6 @@ $versionInfo = $versionReader->getVersionInfo();
         .links a:hover {
             background-color: #0056b3;
         }
-        .demo-btn {
-            background-color: #28a745 !important;
-        }
-        .demo-btn:hover {
-            background-color: #1e7e34 !important;
-        }
     </style>
 </head>
 <body>
@@ -87,9 +81,7 @@ $versionInfo = $versionReader->getVersionInfo();
         
         <div class="links">
             <a href="/admin/">Interface Administrativa</a>
-            <a href="/api/test">Testar API</a>
             <a href="http://localhost:8081" target="_blank">PHPMyAdmin</a>
-            <a href="/toggle-demo.html" class="demo-btn">🎛️ Demo Toggle Buttons</a>
         </div>
         
     </div>

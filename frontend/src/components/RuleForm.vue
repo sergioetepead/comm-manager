@@ -114,11 +114,11 @@
               <input type="checkbox" v-model="enableOrderField">
               <span class="slider-material"></span>
             </label>
-            <span class="toggle-label">Preencher ordem de execução?</span>
+            <span class="toggle-label">Preencher ordem de visualização?</span>
           </div>
           
           <div v-if="enableOrderField">
-            <label for="execution_order">Ordem de Execução</label>
+            <label for="execution_order">Ordem de Visualização</label>
             <input 
               v-model.number="formData.execution_order"
               type="number"
@@ -127,7 +127,7 @@
               placeholder="1"
             >
             <small class="form-help">
-              Define a ordem de execução dentro do mesmo grupo
+              Define a ordem de visualização dentro do mesmo grupo
             </small>
           </div>
         </div>

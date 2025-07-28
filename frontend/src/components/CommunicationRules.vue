@@ -2,9 +2,18 @@
   <div class="communication-rules">
     <div class="controls">
       <h2>Réguas de Comunicação</h2>
-      <button @click="showForm = true" class="btn-primary">
-        ➕ Nova Régua
-      </button>
+      <div class="controls-right">
+        <div class="filter-toggle">
+          <label class="toggle-material">
+            <input type="checkbox" v-model="showOnlyActive">
+            <span class="slider-material"></span>
+          </label>
+          <span class="toggle-label">Só Ativas</span>
+        </div>
+        <button @click="showForm = true" class="btn-primary">
+          ➕ Nova Régua
+        </button>
+      </div>
     </div>
 
     <RuleForm 
@@ -97,14 +106,20 @@ export default {
       showForm: false,
       showLogs: false,
       editingRule: null,
-      selectedRuleId: null
+      selectedRuleId: null,
+      showOnlyActive: false
     }
   },
   computed: {
     groupedRules() {
       const groups = {}
       
-      this.rules.forEach(rule => {
+      // Filter rules based on showOnlyActive toggle
+      const filteredRules = this.showOnlyActive 
+        ? this.rules.filter(rule => rule.active) 
+        : this.rules
+      
+      filteredRules.forEach(rule => {
         const status = this.getStatusFromName(rule.name)
         if (!groups[status]) {
           groups[status] = []
@@ -306,6 +321,73 @@ export default {
 .controls h2 {
   color: #495057;
   margin: 0;
+}
+
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toggle-label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+/* Material Design Toggle (same as RuleForm) */
+.toggle-material {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 36px;
+}
+
+.toggle-material input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-material {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 18px;
+}
+
+.slider-material:before {
+  position: absolute;
+  content: "";
+  height: 32px;
+  width: 32px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-material input:checked + .slider-material {
+  background-color: #81c784;
+}
+
+.toggle-material input:checked + .slider-material:before {
+  transform: translateX(28px);
+  background-color: #4caf50;
 }
 
 .rules-list {
