@@ -33,7 +33,8 @@
       "Bash(docker logs:*)",
       "Bash(git mv:*)",
       "Bash(docker:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm install:*)"
     ],
     "deny": []
   }
