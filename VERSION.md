@@ -1,5 +1,26 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.10.1 - 2025-07-28
+**UX POLISH: Interface do Histórico de Versões Refinada**
+
+### 🎯 MELHORIA DE UX: INFORMAÇÃO 'ATIVA' REORGANIZADA
+- ✅ **Status 'Ativa/Inativa'** agora aparece no card antes de expandir
+- ✅ **Badge colorido** junto ao contador de versões para visibilidade imediata
+- ✅ **Removida coluna 'Ativa'** da tabela (era redundante por versão)
+- ✅ **Backend otimizado** retorna `is_active` baseado na versão atual
+
+### 💡 LÓGICA CONCEITUAL CORRETA APLICADA
+- **'Ativa' é propriedade da RÉGUA** como um todo, não de cada versão histórica
+- Só a versão atual (superseded=FALSE) determina se a régua será executada
+- Versões históricas preservam contexto do momento em que eram ativas
+- Interface mais limpa focada no que importa
+
+### 🎨 RESULTADO VISUAL MELHORADO
+- **Card compacto**: `lead_teste - 5 versões - [ATIVA]`
+- **Tabela focada**: histórico sem informação redundante
+- **UX intuitiva**: status visível antes mesmo de expandir
+- **Design consistente**: badges com cores ETEP
+
 ## v2.10.0 - 2025-07-28
 **MAJOR: Histórico de Versões das Réguas COMPLETO**
 
