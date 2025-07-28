@@ -36,7 +36,15 @@
               >
                 <div class="rule-info">
                   <h3>{{ rule.current_name }}</h3>
-                  <span class="version-count">{{ rule.version_count }} vers{{ rule.version_count === 1 ? 'ão' : 'ões' }}</span>
+                  <div class="rule-meta">
+                    <span class="version-count">{{ rule.version_count }} vers{{ rule.version_count === 1 ? 'ão' : 'ões' }}</span>
+                    <span 
+                      class="rule-status-badge"
+                      :class="rule.is_active ? 'active' : 'inactive'"
+                    >
+                      {{ rule.is_active ? 'Ativa' : 'Inativa' }}
+                    </span>
+                  </div>
                 </div>
                 <div class="expand-icon">
                   {{ expandedRule === rule.rule_id ? '▼' : '▶' }}
@@ -61,7 +69,6 @@
                         <th>Horário Início</th>
                         <th>Horário Fim</th>
                         <th>Ordem</th>
-                        <th>Ativa</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -95,14 +102,6 @@
                         <td>{{ version.send_time_start || 'N/A' }}</td>
                         <td>{{ version.send_time_end || 'N/A' }}</td>
                         <td>{{ version.execution_order || 'N/A' }}</td>
-                        <td>
-                          <span 
-                            class="active-badge"
-                            :class="version.active ? 'active' : 'inactive'"
-                          >
-                            {{ version.active ? 'Sim' : 'Não' }}
-                          </span>
-                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -403,9 +402,34 @@ export default {
   font-size: 1.1rem;
 }
 
+.rule-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
 .version-count {
   color: var(--text-color);
   font-size: 0.9rem;
+}
+
+.rule-status-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.rule-status-badge.active {
+  background-color: var(--secondary-color);
+  color: var(--primary-contrast-color);
+}
+
+.rule-status-badge.inactive {
+  background-color: var(--text-light-color);
+  color: var(--primary-contrast-color);
 }
 
 .expand-icon {
@@ -523,22 +547,6 @@ export default {
   word-break: break-all;
 }
 
-.active-badge {
-  padding: 0.2rem 0.6rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.active-badge.active {
-  background-color: var(--secondary-color);
-  color: var(--primary-contrast-color);
-}
-
-.active-badge.inactive {
-  background-color: var(--text-light-color);
-  color: var(--primary-contrast-color);
-}
 
 /* Responsive para tabela */
 @media (max-width: 1200px) {

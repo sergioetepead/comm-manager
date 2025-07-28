@@ -497,7 +497,8 @@ function getCommunicationRulesVersionsSummary() {
                 rule_id,
                 MAX(CASE WHEN superseded = FALSE THEN name END) as current_name,
                 COUNT(*) as version_count,
-                MIN(CASE WHEN superseded = FALSE THEN execution_order END) as min_execution_order
+                MIN(CASE WHEN superseded = FALSE THEN execution_order END) as min_execution_order,
+                MAX(CASE WHEN superseded = FALSE THEN active END) as is_active
             FROM communication_rules 
             GROUP BY rule_id 
             ORDER BY min_execution_order ASC, current_name ASC
