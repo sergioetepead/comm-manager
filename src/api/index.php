@@ -22,6 +22,9 @@ $path = parse_url($request_uri, PHP_URL_PATH);
 $path = str_replace('/api', '', $path);
 $method = $_SERVER['REQUEST_METHOD'];
 
+// Debug: log the path for debugging
+// error_log("API Debug - Path: $path, Method: $method");
+
 try {
     // Parse path segments for dynamic routing
     $segments = explode('/', trim($path, '/'));
@@ -47,6 +50,10 @@ try {
             checkRuleName();
             break;
             
+        case $path === '/communication-rules/versions-summary' && $method === 'GET':
+            getCommunicationRulesVersionsSummary();
+            break;
+            
         case count($segments) === 2 && $segments[0] === 'communication-rules' && $method === 'GET':
             getCommunicationRule($segments[1]);
             break;
@@ -65,6 +72,10 @@ try {
             
         case count($segments) === 3 && $segments[0] === 'communication-rules' && $segments[2] === 'logs' && $method === 'GET':
             getCommunicationRuleLogs($segments[1]);
+            break;
+            
+        case count($segments) === 3 && $segments[0] === 'communication-rules' && $segments[1] === 'versions' && $method === 'GET':
+            getCommunicationRuleVersions($segments[2]);
             break;
             
         default:
@@ -468,6 +479,100 @@ function checkRuleName() {
         
     } catch (Exception $e) {
         http_response_code(400);
+        echo json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ]);
+    }
+}
+
+function getCommunicationRulesVersionsSummary() {
+    try {
+        $database = new Database();
+        $conn = $database->getConnection();
+        
+        // Get summary of rules grouped by rule_id with current name and version count
+        $query = "
+            SELECT 
+                rule_id,
+                MAX(CASE WHEN superseded = FALSE THEN name END) as current_name,
+                COUNT(*) as version_count,
+                MIN(CASE WHEN superseded = FALSE THEN execution_order END) as min_execution_order
+            FROM communication_rules 
+            GROUP BY rule_id 
+            ORDER BY min_execution_order ASC, current_name ASC
+        ";
+        
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $rules = $stmt->fetchAll();
+        
+        // Filter out rules with null current_name (means no active version exists)
+        $rules = array_filter($rules, function($rule) {
+            return $rule['current_name'] !== null;
+        });
+        
+        echo json_encode([
+            'status' => 'success',
+            'data' => array_values($rules), // Re-index array after filtering
+            'count' => count($rules)
+        ], JSON_UNESCAPED_UNICODE);
+        
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ]);
+    }
+}
+
+function getCommunicationRuleVersions($rule_id) {
+    try {
+        $database = new Database();
+        $conn = $database->getConnection();
+        
+        // Get all versions for a specific rule_id, ordered by created_at DESC (newest first)
+        $query = "
+            SELECT 
+                id,
+                rule_id,
+                name,
+                sql_query,
+                channel,
+                template_id,
+                send_time_start,
+                send_time_end,
+                execution_order,
+                active,
+                created_at,
+                superseded
+            FROM communication_rules 
+            WHERE rule_id = ? 
+            ORDER BY created_at DESC
+        ";
+        
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$rule_id]);
+        $versions = $stmt->fetchAll();
+        
+        if (empty($versions)) {
+            http_response_code(404);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Rule not found'
+            ]);
+            return;
+        }
+        
+        echo json_encode([
+            'status' => 'success',
+            'data' => $versions,
+            'count' => count($versions)
+        ], JSON_UNESCAPED_UNICODE);
+        
+    } catch (Exception $e) {
+        http_response_code(500);
         echo json_encode([
             'status' => 'error',
             'message' => $e->getMessage()

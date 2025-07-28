@@ -1,5 +1,58 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.10.0 - 2025-07-28
+**MAJOR: Histórico de Versões das Réguas COMPLETO**
+
+### 🎯 NOVA FUNCIONALIDADE: HISTÓRICO DE VERSÕES
+- ✅ **Menu sidebar**: "Histórico de Versões" implementado
+- ✅ **Lista agrupada por status**: mesma ordenação da tela de edição
+- ✅ **Cards recolhidos**: clique expande para mostrar tabela completa
+- ✅ **Tabela de versões**: todas as versões ordenadas por timestamp (mais recente primeiro)
+- ✅ **Campo SQL destacado**: coluna SQL com código formatado (o mais importante!)
+
+### 🔧 BACKEND API COMPLETO
+- ✅ **Endpoint `/api/communication-rules/versions-summary`**: lista regras agrupadas por rule_id
+- ✅ **Endpoint `/api/communication-rules/versions/{rule_id}`**: todas as versões de uma regra
+- ✅ **Dados reais**: versionamento funcional testado com regras existentes
+- ✅ **Orderização inteligente**: por execution_order depois por nome
+
+### 🎨 INTERFACE COMPLETA
+- ✅ **Campos mostrados**: Versão, Data/Hora, Situação, Nome, **SQL**, Canal, Template, Horários, Ordem, Ativa
+- ✅ **Situação das versões**: "Atual" vs "Substituída" com badges coloridos
+- ✅ **Versão atual destacada**: fundo laranja ETEP para versão ativa
+- ✅ **Design ETEP**: cores e tipografia consistentes com identidade visual
+
+### 🔧 CORREÇÕES TÉCNICAS
+- ✅ **Vue 3 compatibility**: removido `this.$set` (substituído por reatividade nativa)
+- ✅ **Routing fix**: endpoints específicos posicionados antes dos genéricos
+- ✅ **SQL formatação**: código SQL com `<code>` blocks e quebra de linha
+
+### ✨ Resultado Final
+Interface completa para consultar todo o histórico de modificações das réguas, permitindo rastreabilidade total das alterações e comparação entre versões. Fundamental para auditoria e troubleshooting.
+
+## v2.9.0 - 2025-07-28
+**MAJOR: Implementação Completa do Menu Sidebar + Navegação**
+
+### ✅ SISTEMA DE NAVEGAÇÃO SIDEBAR IMPLEMENTADO
+- ✅ **Menu estruturado**: Réguas, Execuções, Ferramentas
+- ✅ **Painel Diário** como página inicial com estatísticas reais
+- ✅ **Páginas placeholder** para funcionalidades em desenvolvimento
+- ✅ **Vue Router 4** configurado com histórico para /admin/
+- ✅ **Layout responsivo** com ETEP brand colors
+
+### 🧩 FUNCIONALIDADES IMPLEMENTADAS
+- ✅ **Sidebar com menu expansível**: seguindo padrão app-front
+- ✅ **DailyPanel**: contadores de réguas ativas/inativas carregados da API
+- ✅ **Páginas RuleVersions e DetailedLogs**: em construção com preview das funcionalidades
+- ✅ **Navegação fluida**: entre seções sem reload de página
+- ✅ **Design system ETEP**: integrado em todos os componentes
+
+### 🔜 Estrutura Preparada Para
+- Implementar histórico de versões das réguas
+- Painel visual de execuções (dias × réguas)
+- Logs detalhados com filtros avançados
+- Sistema de relatórios e métricas
+
 ## v2.8.1 - 2025-07-28
 **HOTFIX: Cards UX Perfect - Alinhamento e Botões**
 
