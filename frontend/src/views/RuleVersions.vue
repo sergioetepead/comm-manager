@@ -20,7 +20,7 @@
         >
           <div class="group-header">
             <h3>{{ formatStatusName(status) }}</h3>
-            <span class="group-count">{{ group.length }} régua{{ group.length !== 1 ? 's' : '' }}</span>
+            <span class="group-count">{{ group.length }} régua{{ group.length === 1 ? '' : 's' }}</span>
           </div>
           
           <div class="rules-grid">
@@ -36,7 +36,7 @@
               >
                 <div class="rule-info">
                   <h3>{{ rule.current_name }}</h3>
-                  <span class="version-count">{{ rule.version_count }} versão{{ rule.version_count !== 1 ? 'es' : '' }}</span>
+                  <span class="version-count">{{ rule.version_count }} vers{{ rule.version_count === 1 ? 'ão' : 'ões' }}</span>
                 </div>
                 <div class="expand-icon">
                   {{ expandedRule === rule.rule_id ? '▼' : '▶' }}
