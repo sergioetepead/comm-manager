@@ -1,23 +1,21 @@
 <template>
   <div id="app">
-    <header class="header">
-      <h1>Sistema de Gestão da Régua de Comunicação - ETEP</h1>
-      <p>Interface Administrativa</p>
-    </header>
-    
-    <main class="main-content">
-      <CommunicationRules />
-    </main>
+    <div class="flex-row">
+      <Sidebar/>
+      <div class="flex-item flex-col">
+        <router-view/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import CommunicationRules from './components/CommunicationRules.vue'
+import Sidebar from './components/Sidebar.vue'
 
 export default {
   name: 'App',
   components: {
-    CommunicationRules
+    Sidebar
   }
 }
 </script>
@@ -48,28 +46,18 @@ body {
   min-height: 100vh;
 }
 
-.header {
-  background: var(--primary-color);
-  color: var(--primary-contrast-color);
-  padding: 2rem;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+/* Flex utilities */
+.flex-row {
+  display: flex;
+  flex-direction: row;
 }
 
-.header h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+.flex-col {
+  display: flex;
+  flex-direction: column;
 }
 
-.header p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  color: var(--secondary-color);
-}
-
-.main-content {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+.flex-item {
+  flex: 1;
 }
 </style>
