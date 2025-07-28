@@ -413,7 +413,7 @@ export default {
 }
 
 .status-group {
-  background: #f8f9fa;
+  background: var(--background-color);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -423,19 +423,19 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  background-color: #e9ecef;
+  background-color: var(--primary-color);
   border-bottom: 1px solid #dee2e6;
 }
 
 .group-header h3 {
   margin: 0;
-  color: #495057;
+  color: var(--primary-contrast-color);
   font-size: 1.1rem;
 }
 
 .group-count {
-  background-color: #6c757d;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-contrast-color);
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.85rem;
@@ -454,6 +454,9 @@ export default {
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
 }
 
 .rule-card:hover {
@@ -471,13 +474,13 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #f8f9fa;
+  background-color: var(--primary-contrast-color);
   border-bottom: 1px solid #e9ecef;
 }
 
 .rule-header h3 {
   margin: 0;
-  color: #495057;
+  color: var(--primary-color);
 }
 
 .status-badge {
@@ -488,17 +491,19 @@ export default {
 }
 
 .status-badge.active {
-  background-color: #d4edda;
-  color: #155724;
+  background-color: var(--secondary-color);
+  color: var(--primary-contrast-color);
 }
 
 .status-badge.inactive {
-  background-color: #f8d7da;
-  color: #721c24;
+  background-color: var(--text-light-color);
+  color: var(--primary-contrast-color);
 }
 
 .rule-body {
   padding: 1rem;
+  flex-grow: 1;
+  background-color: var(--primary-contrast-color);
 }
 
 .rule-body p {
@@ -507,18 +512,19 @@ export default {
 }
 
 .rule-body code {
-  background-color: #f8f9fa;
+  background-color: var(--background-color);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-family: 'Courier New', monospace;
   font-size: 0.8rem;
+  color: var(--primary-color);
 }
 
 .rule-actions {
   display: flex;
   gap: 0.5rem;
   padding: 1rem;
-  background-color: #f8f9fa;
+  background-color: var(--background-color);
   border-top: 1px solid #e9ecef;
 }
 
@@ -550,29 +556,29 @@ export default {
 }
 
 .btn-success {
-  background-color: #28a745;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-contrast-color);
 }
 
 .btn-success:hover {
-  background-color: #1e7e34;
+  background-color: rgba(237, 110, 38, 0.8);
 }
 
 .btn-warning {
-  background-color: #ffc107;
-  color: #212529;
+  background-color: var(--text-light-color);
+  color: var(--primary-contrast-color);
 }
 
 .btn-warning:hover {
-  background-color: #e0a800;
+  background-color: rgba(138, 138, 138, 0.8);
 }
 
 .btn-info {
-  background-color: #17a2b8;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-contrast-color);
 }
 
 .btn-info:hover {
-  background-color: #117a8b;
+  background-color: rgba(37, 46, 98, 0.8);
 }
 </style>

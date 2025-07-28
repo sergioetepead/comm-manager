@@ -1,5 +1,25 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.8.1 - 2025-07-28
+**HOTFIX: Cards UX Perfect - Alinhamento e Botões**
+
+### 🔧 CORREÇÕES DE UX
+- ✅ **Cards uniformes**: Flexbox column elimina tarja branca desalinhada
+- ✅ **Background consistente**: Todo card com fundo cinza ETEP uniforme
+- ✅ **Botões alinhados**: Actions sempre no bottom, independente do conteúdo
+- ✅ **Cores dos botões**: Todos os botões agora seguem identidade ETEP
+
+### 🎨 BOTÕES COM BRANDING ETEP
+- **✏️ Editar**: Laranja ETEP (secondary)
+- **▶️ Ativar**: Laranja ETEP (success) 
+- **⏸️ Desativar**: Cinza ETEP (warning)
+- **📊 Logs**: Azul escuro ETEP (info)
+
+### ✨ Resultado Final
+- Cards lado a lado perfeitamente alinhados
+- Visual 100% consistente com identidade ETEP
+- UX profissional sem elementos desalinhados
+
 ## v2.8.0 - 2025-07-28
 **NOVA SKIN: Cores ETEP Aplicadas**
 
