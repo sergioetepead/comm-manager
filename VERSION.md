@@ -1,5 +1,26 @@
 # Histórico de Versões - Sistema de Gestão da Régua de Comunicação ETEP
 
+## v2.8.0 - 2025-07-28
+**NOVA SKIN: Cores ETEP Aplicadas**
+
+### 🎨 VISUAL IDENTITY ETEP IMPLEMENTADO
+- ✅ **Cores oficiais ETEP**: Primary `#252e62`, Secondary `#ed6e26`
+- ✅ **Header**: Azul escuro ETEP com subtítulo laranja
+- ✅ **Background**: Cinza claro ETEP `#f0f0f0` 
+- ✅ **Botões**: Primary azul ETEP, Secondary laranja ETEP
+- ✅ **Toggle**: Estados com cores oficiais ETEP
+- ✅ **Tipografia**: Open Sans + cores padrão ETEP
+
+### 🎯 Baseado em
+- Análise completa do padrão visual admin.etepead.com.br
+- Extração das variáveis CSS do app-front
+- Manutenção da estrutura atual (v2 será layout + menu)
+
+### ✨ Resultado
+- Interface visualmente alinhada com identidade ETEP
+- Mesma funcionalidade, novo visual profissional
+- Preparação para v2 com sidebar + menu structure
+
 ## v2.7.0 - 2025-07-25
 **MAJOR: UX Perfeita + Toggles Material Design Implementados**
 

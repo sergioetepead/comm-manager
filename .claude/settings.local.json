@@ -30,7 +30,10 @@
       "Bash(ls:*)",
       "Bash(git tag:*)",
       "Bash(vite build)",
-      "Bash(docker logs:*)"
+      "Bash(docker logs:*)",
+      "Bash(git mv:*)",
+      "Bash(docker:*)",
+      "Bash(curl:*)"
     ],
     "deny": []
   }

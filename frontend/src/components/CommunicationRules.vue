@@ -303,7 +303,7 @@ export default {
 
 <style scoped>
 .communication-rules {
-  background: white;
+  background: var(--primary-contrast-color);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   overflow: hidden;
@@ -314,12 +314,12 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  background-color: #f8f9fa;
+  background-color: var(--background-color);
   border-bottom: 1px solid #e9ecef;
 }
 
 .controls h2 {
-  color: #495057;
+  color: var(--primary-color);
   margin: 0;
 }
 
@@ -337,7 +337,7 @@ export default {
 
 .toggle-label {
   font-weight: 500;
-  color: #495057;
+  color: var(--text-color);
   font-size: 0.95rem;
   white-space: nowrap;
 }
@@ -382,12 +382,12 @@ export default {
 }
 
 .toggle-material input:checked + .slider-material {
-  background-color: #81c784;
+  background-color: var(--secondary-color);
 }
 
 .toggle-material input:checked + .slider-material:before {
   transform: translateX(28px);
-  background-color: #4caf50;
+  background-color: var(--primary-color);
 }
 
 .rules-list {
@@ -532,21 +532,21 @@ export default {
 }
 
 .btn-primary {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-contrast-color);
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: rgba(37, 46, 98, 0.8);
 }
 
 .btn-secondary {
-  background-color: #6c757d;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-contrast-color);
 }
 
 .btn-secondary:hover {
-  background-color: #545b62;
+  background-color: rgba(237, 110, 38, 0.8);
 }
 
 .btn-success {

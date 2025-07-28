@@ -23,6 +23,15 @@ export default {
 </script>
 
 <style>
+:root {
+  --primary-color: #252e62;
+  --secondary-color: #ed6e26;
+  --text-color: #555555;
+  --text-light-color: #8a8a8a;
+  --primary-contrast-color: #ffffff;
+  --background-color: #f0f0f0;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -30,9 +39,9 @@ export default {
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 #app {
@@ -40,8 +49,8 @@ body {
 }
 
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--primary-color);
+  color: var(--primary-contrast-color);
   padding: 2rem;
   text-align: center;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -55,6 +64,7 @@ body {
 .header p {
   font-size: 1.2rem;
   opacity: 0.9;
+  color: var(--secondary-color);
 }
 
 .main-content {
